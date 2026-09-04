@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { ArrowUpRight, Mail } from 'lucide-react';
 import { LinkedinIcon, InstagramIcon, FacebookIcon, XIcon } from './ui/SocialIcons';
 import ScrollReveal from './ui/ScrollReveal';
+import VisitorCounter from './ui/VisitorCounter';
 
 const footerLinks = [
   {
@@ -130,7 +131,7 @@ export default function Footer() {
                   Theatre Educator, Corporate Trainer, Speaker & PhD
                   Scholar. Transforming lives through the art of communication.
                 </p>
-                <div className="flex gap-3">
+                <div className="flex gap-3 mb-8">
                   {socials.map((social) => (
                     <a
                       key={social.label}
@@ -144,6 +145,7 @@ export default function Footer() {
                     </a>
                   ))}
                 </div>
+                <VisitorCounter />
               </div>
             </ScrollReveal>
 
