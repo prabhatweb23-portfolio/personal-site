@@ -1,11 +1,32 @@
 'use client';
 
+import Image from 'next/image';
+import { ArrowUpRight } from 'lucide-react';
 import AnimatedText from '@/components/ui/AnimatedText';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import Counter from '@/components/ui/Counter';
 import TypingText from '@/components/ui/TypingText';
 import OrganicInkEffect from '@/components/ui/OrganicInkEffect';
 import ZoomableImage from '@/components/ui/ZoomableImage';
+
+const hopeTags = [
+  {
+    label: 'Are you a School/University looking for workshops?',
+    href: 'https://wa.me/919289830699?text=we%20are%20School/University%20looking%20for%20a%20workshops',
+  },
+  {
+    label: 'Are you looking for regular workshops?',
+    href: 'https://wa.me/919289830699?text=we%20are%20looking%20for%20regular%20workshops',
+  },
+  {
+    label: 'Are you looking for weekend workshops?',
+    href: 'https://wa.me/919289830699?text=we%20are%20looking%20for%20weekend%20workshops',
+  },
+  {
+    label: 'Are you looking for a collaboration for space to perform, collaborate and connect with a growing community of artists?',
+    href: 'https://wa.me/919289830699?text=we%20are%20looking%20for%20a%20collaboration%20for%20space',
+  },
+];
 
 export default function HopeContent() {
   return (
@@ -39,7 +60,7 @@ export default function HopeContent() {
 
       {/* Wrapper for the rest of the page to scroll over the sticky hero */}
       <div className="relative z-10 bg-off-white rounded-t-[3rem] md:rounded-t-[5rem] shadow-[0_-20px_50px_rgba(0,0,0,0.15)] mt-[-3rem] md:mt-[-5rem]">
-        
+
         {/* 2. Impact Statistics */}
         <section className="py-12 md:py-24 relative px-4">
           <div className="container-editorial">
@@ -168,6 +189,50 @@ export default function HopeContent() {
                   </div>
                 </div>
               </ScrollReveal>
+            </div>
+          </div>
+        </section>
+
+        {/* HOPE Banner + Reach Out CTA Tags */}
+        <section className="relative overflow-hidden w-full">
+          {/* Banner Image */}
+          <div className="relative w-full h-[50vh] md:h-[70vh] overflow-hidden bg-blue-950">
+            <Image
+              src="/images/hope-banner.jpg"
+              alt="HOPE — Same Stage, Different Worlds"
+              fill
+              className="object-cover object-top"
+              sizes="100vw"
+              style={{
+                maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)'
+              }}
+            />
+          </div>
+
+          {/* CTA Tags (After Banner) */}
+          <div className="relative bg-blue-950 py-12 md:py-20 px-4">
+            <div className="container-editorial w-full">
+              <ScrollReveal variant="fade-up">
+                <span className="text-eyebrow !text-cyan-400 block mb-10 tracking-widest uppercase text-center drop-shadow-md">
+                  How can HOPE help you?
+                </span>
+              </ScrollReveal>
+              <div className="flex flex-wrap justify-center gap-4 md:gap-6 max-w-5xl mx-auto">
+                {hopeTags.map((tag, index) => (
+                  <ScrollReveal key={index} variant="fade-up" delay={0.1 * (index + 1)}>
+                    <a
+                      href={tag.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group relative inline-flex items-center gap-3 px-8 py-4 md:px-10 md:py-5 rounded-full border border-cyan-400/30 bg-blue-900/50 text-cyan-50 text-sm md:text-lg font-medium backdrop-blur-xl hover:bg-cyan-400 hover:text-blue-950 hover:border-cyan-400 transition-all duration-300 hover:shadow-[0_0_30px_rgba(34,211,238,0.4)]"
+                    >
+                      <span className="text-center">{tag.label}</span>
+                      <ArrowUpRight className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0 shrink-0" />
+                    </a>
+                  </ScrollReveal>
+                ))}
+              </div>
             </div>
           </div>
         </section>

@@ -6,6 +6,7 @@ import Navigation from "@/components/Navigation";
 import CustomCursor from "@/components/CustomCursor";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/ui/BackToTop";
+import { Analytics } from "@vercel/analytics/react";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -68,6 +69,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Footer />
         </SmoothScroll>
         <BackToTop />
+        <Analytics />
       </body>
     </html>
   );

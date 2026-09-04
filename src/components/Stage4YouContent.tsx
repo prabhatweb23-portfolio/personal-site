@@ -1,11 +1,24 @@
 'use client';
 
+import Image from 'next/image';
+import { ArrowUpRight } from 'lucide-react';
 import AnimatedText from '@/components/ui/AnimatedText';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import Counter from '@/components/ui/Counter';
 import TypingText from '@/components/ui/TypingText';
 import LivePerformanceEffect from '@/components/ui/LivePerformanceEffect';
 import ZoomableImage from '@/components/ui/ZoomableImage';
+
+const stage4YouTags = [
+  {
+    label: 'Online events',
+    href: 'https://wa.me/919289830699?text=we%20are%20looking%20for%20online%20events',
+  },
+  {
+    label: 'Offline events',
+    href: 'https://wa.me/919289830699?text=we%20are%20looking%20for%20offline%20events',
+  },
+];
 
 export default function Stage4YouContent() {
   return (
@@ -170,6 +183,50 @@ export default function Stage4YouContent() {
                   </div>
                 </div>
               </ScrollReveal>
+            </div>
+          </div>
+        </section>
+
+        {/* Stage4You Banner + Reach Out CTA Tags */}
+        <section className="relative overflow-hidden w-full">
+          {/* Banner Image */}
+          <div className="relative w-full h-[50vh] md:h-[70vh] overflow-hidden bg-charcoal">
+            <Image
+              src="/images/hope-banner.jpg"
+              alt="Stage4You — Events"
+              fill
+              className="object-cover object-top"
+              sizes="100vw"
+              style={{
+                maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)'
+              }}
+            />
+          </div>
+
+          {/* CTA Tags (After Banner) */}
+          <div className="relative bg-charcoal py-12 md:py-20 px-4">
+            <div className="container-editorial w-full">
+              <ScrollReveal variant="fade-up">
+                <span className="text-eyebrow !text-amber-500 block mb-10 tracking-widest uppercase text-center drop-shadow-md">
+                  How can Stage4You help you?
+                </span>
+              </ScrollReveal>
+              <div className="flex flex-wrap justify-center gap-4 md:gap-6 max-w-5xl mx-auto">
+                {stage4YouTags.map((tag, index) => (
+                  <ScrollReveal key={index} variant="fade-up" delay={0.1 * (index + 1)}>
+                    <a
+                      href={tag.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group relative inline-flex items-center gap-3 px-8 py-4 md:px-10 md:py-5 rounded-full border border-amber-500/30 bg-graphite/50 text-amber-50 text-sm md:text-lg font-medium backdrop-blur-xl hover:bg-amber-500 hover:text-charcoal hover:border-amber-500 transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,158,11,0.4)]"
+                    >
+                      <span className="text-center">{tag.label}</span>
+                      <ArrowUpRight className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0 shrink-0" />
+                    </a>
+                  </ScrollReveal>
+                ))}
+              </div>
             </div>
           </div>
         </section>
