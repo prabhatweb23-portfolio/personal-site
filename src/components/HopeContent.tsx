@@ -196,16 +196,18 @@ export default function HopeContent() {
         {/* HOPE Banner + Reach Out CTA Tags */}
         <section className="relative overflow-hidden w-full">
           {/* Banner Image */}
-          <div className="relative w-full h-[50vh] md:h-[70vh] overflow-hidden bg-blue-950">
+          <div className="relative w-full bg-blue-950 flex flex-col">
             <Image
               src="/images/hope-banner.jpg"
               alt="HOPE — Same Stage, Different Worlds"
-              fill
-              className="object-cover object-top"
+              width={1920}
+              height={1080}
+              className="w-full h-auto"
               sizes="100vw"
+              priority
               style={{
-                maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)'
+                maskImage: 'linear-gradient(to bottom, black 95%, transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to bottom, black 95%, transparent 100%)'
               }}
             />
           </div>
