@@ -5,14 +5,49 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 
 export default function ContactContent() {
-  const [formState, setFormState] = useState<'idle' | 'submitting' | 'success'>('idle');
+  const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
   const [activeField, setActiveField] = useState<string | null>(null);
   const [formData, setFormData] = useState({ name: '', email: '', service: '', message: '' });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormState('submitting');
-    setTimeout(() => setFormState('success'), 2000);
+    setErrorMessage('');
+
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || '3b0ae2d4-8e52-48df-9b3c-03129541c696';
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: formData.name,
+          email: formData.email,
+          service: formData.service || 'General Inquiry',
+          message: formData.message,
+          from_name: formData.name,
+          subject: `New Inquiry from ${formData.name} — ${formData.service || 'Portfolio Contact'}`,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setFormState('success');
+        setFormData({ name: '', email: '', service: '', message: '' });
+      } else {
+        setFormState('error');
+        setErrorMessage(data.message || 'Something went wrong. Please try again.');
+      }
+    } catch {
+      setFormState('error');
+      setErrorMessage('Network error. Please check your connection or reach out directly at prabhatweb23@gmail.com.');
+    }
   };
 
   const contactInfo = [
@@ -138,8 +173,11 @@ export default function ContactContent() {
                       <h3 className="text-3xl font-display mb-4" style={{ color: 'var(--charcoal)' }}>Message Sent</h3>
                       <p style={{ color: 'var(--graphite)' }}>Thank you for reaching out. I&apos;ll get back to you shortly.</p>
                       <button 
-                        onClick={() => setFormState('idle')}
-                        className="mt-8 text-sm uppercase tracking-widest font-medium border-b border-transparent hover:border-current transition-colors pb-1"
+                        onClick={() => {
+                          setFormState('idle');
+                          setErrorMessage('');
+                        }}
+                        className="mt-8 text-sm uppercase tracking-widest font-medium border-b border-transparent hover:border-current transition-colors pb-1 cursor-pointer"
                         style={{ color: 'var(--deep-teal)' }}
                       >
                         Send Another
@@ -248,12 +286,34 @@ export default function ContactContent() {
                         />
                       </div>
 
+                      {/* Honeypot for spam protection */}
+                      <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
+
+                      {/* Error notification if failed */}
+                      {formState === 'error' && errorMessage && (
+                        <div 
+                          className="p-4 rounded-2xl text-xs flex items-center gap-3 border"
+                          style={{ 
+                            background: 'rgba(239, 68, 68, 0.08)', 
+                            color: '#b91c1c', 
+                            borderColor: 'rgba(239, 68, 68, 0.25)' 
+                          }}
+                        >
+                          <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                          </svg>
+                          <span>{errorMessage}</span>
+                        </div>
+                      )}
+
                       {/* Submit Button */}
-                      <div className="pt-6">
+                      <div className="pt-4">
                         <button 
                           type="submit"
                           disabled={formState === 'submitting'}
-                          className="group relative overflow-hidden rounded-full px-8 py-4 w-full flex items-center justify-center gap-3 transition-transform hover:scale-[1.02] disabled:opacity-70 disabled:hover:scale-100"
+                          className="group relative overflow-hidden rounded-full px-8 py-4 w-full flex items-center justify-center gap-3 transition-transform hover:scale-[1.02] disabled:opacity-70 disabled:hover:scale-100 cursor-pointer"
                           style={{ background: 'var(--deep-teal)', color: 'var(--white)' }}
                         >
                           <span className="relative z-10 text-sm uppercase tracking-widest font-medium">
