@@ -30,6 +30,7 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://homeofpassionevents.in"),
   title: "Prabhat Singh Rajput — Theatre Educator, Speaker & Changemaker",
   description:
     "Prabhat Singh Rajput is a theatre educator, corporate trainer, and PhD scholar. Transforming communication through theatre, training, and community impact.",
