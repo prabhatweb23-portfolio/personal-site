@@ -709,7 +709,11 @@ function HopePreview() {
               </p>
             </ScrollReveal>
             <ScrollReveal variant="fade-up" delay={0.6}>
-              <MagneticButton variant="outline" href="/hope">
+              <MagneticButton
+                variant="primary"
+                href="/hope"
+                className="!bg-[#1d4ed8] !text-white hover:!bg-[#0a192f] shadow-[0_4px_16px_rgba(29,78,216,0.25)] hover:shadow-[0_8px_25px_rgba(10,25,47,0.35)] !border-transparent"
+              >
                 Discover HOPE
                 <ArrowUpRight className="w-4 h-4" />
               </MagneticButton>
